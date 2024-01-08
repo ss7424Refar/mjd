@@ -1,0 +1,152 @@
+{
+  "client_app_version": "2.0.1.0",
+  "model_type": null,
+  "session_start_time": "2023-08-07 03:44:15",
+  "session_end_time": "2023-08-07 03:45:55",
+  "overall_result": "OK",
+  "detect_file": "C:\\Users\\universal\\Desktop\\model confirm\\LE4\\4.mp4",
+  "session_index": 0,
+  "operation_time": 100000,
+  "attendant_time": 0,
+  "sn_no": "058",
+  "sop_id": "10",
+  "ng_summary": 4,
+  "test_training_model_id": 0,
+  "na_model_id": 0,
+  "sku_switch_id": "20",
+  "procedure_id": 12,
+  "sop_result": {
+    "total_op_count": 4,
+    "ng_op_count": 0,
+    "total_event_count": 7,
+    "ng_event_count": 0
+  },
+  "result_detail": {
+    "startTime": "2023-08-07 03:44:41",
+    "endTime": "2023-08-07 03:45:55",
+    "source_type": 1,
+    "videoFileName": "",
+    "videoStartTime": 0,
+    "operationTime": 100000,
+    "operations": [
+      {
+        "description": "",
+        "name": "扫码",
+        "status": 0,
+        "startTime": "00:11:20",
+        "endTime": "00:11:25",
+        "operation_pt": 10,
+        "events": [
+          {
+            "aliasName": "扫码",
+            "description": "",
+            "evtName": "扫码",
+            "startTime": 680832,
+            "endTime": 680832,
+            "formatMessage": "获取的SN号",
+            "ignore_error": false,
+            "evt_status": 0,
+            "evt_status_message": "Happend"
+          },
+          {
+            "aliasName": "测电压",
+            "description": "",
+            "evtName": "测电压",
+            "startTime": 685392,
+            "endTime": 685392,
+            "formatMessage": "1 个 ELE_METER 安装在 屏幕 上",
+            "ignore_error": false,
+            "evt_status": 0,
+            "evt_status_message": "Happend"
+          }
+        ]
+      },
+      {
+        "description": "",
+        "name": "勘合电脑",
+        "status": 0,
+        "startTime": "00:12:03",
+        "endTime": "00:12:03",
+        "operation_pt": 5,
+        "events": [
+          {
+            "aliasName": "勘合",
+            "description": "",
+            "evtName": "勘合",
+            "startTime": 723504,
+            "endTime": 723504,
+            "formatMessage": "1 个 BASE_WAI 安装在 屏幕 上",
+            "ignore_error": false,
+            "evt_status": 0,
+            "evt_status_message": "Happend"
+          }
+        ]
+      },
+      {
+        "description": "",
+        "name": "插USB贴PO和标签",
+        "status": 0,
+        "startTime": "00:12:17",
+        "endTime": "00:12:27",
+        "operation_pt": 15,
+        "events": [
+          {
+            "aliasName": "连接USB",
+            "description": "",
+            "evtName": "连接USB",
+            "startTime": 747792,
+            "endTime": 747792,
+            "formatMessage": "1 个 USB_ON 安装在 屏幕 上",
+            "ignore_error": false,
+            "evt_status": 0,
+            "evt_status_message": "Happend"
+          },
+          {
+            "aliasName": "贴PO表单",
+            "description": "",
+            "evtName": "贴PO表单",
+            "startTime": 737344,
+            "endTime": 737344,
+            "formatMessage": "1 个 PO 安装在 屏幕 上",
+            "ignore_error": false,
+            "evt_status": 0,
+            "evt_status_message": "Happend"
+          },
+          {
+            "aliasName": "粘贴标签",
+            "description": "",
+            "evtName": "粘贴标签",
+            "startTime": 747792,
+            "endTime": 747792,
+            "formatMessage": "1 个 KB 安装在 屏幕 上",
+            "ignore_error": false,
+            "evt_status": 0,
+            "evt_status_message": "Happend"
+          }
+        ]
+      },
+      {
+        "description": "",
+        "name": "抱走电脑",
+        "status": 0,
+        "startTime": "00:12:33",
+        "endTime": "00:12:34",
+        "operation_pt": 5,
+        "events": [
+          {
+            "aliasName": "抱走电脑",
+            "description": "",
+            "evtName": "抱走电脑",
+            "startTime": 753456,
+            "endTime": 754528,
+            "formatMessage": "TRAY_BASE出现在屏幕上",
+            "ignore_error": false,
+            "evt_status": 0,
+            "evt_status_message": "Happend"
+          }
+        ]
+      }
+    ]
+  },
+  "result_static_detail": null
+}

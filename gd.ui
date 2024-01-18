@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>727</width>
-    <height>730</height>
+    <width>1273</width>
+    <height>752</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,10 +21,10 @@
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>20</y>
-      <width>671</width>
-      <height>681</height>
+      <x>10</x>
+      <y>0</y>
+      <width>1261</width>
+      <height>711</height>
      </rect>
     </property>
     <widget class="QWidget" name="gridLayoutWidget">
@@ -45,6 +45,9 @@
       </property>
       <item row="2" column="1">
        <widget class="QComboBox" name="comboBox_3">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="editable">
          <bool>false</bool>
         </property>
@@ -76,6 +79,9 @@
       </item>
       <item row="0" column="2">
        <widget class="QLineEdit" name="lineEdit">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="placeholderText">
          <string>请先输入流水线</string>
         </property>
@@ -83,6 +89,9 @@
       </item>
       <item row="4" column="2">
        <widget class="QSpinBox" name="spinBox_2">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="maximum">
          <number>23</number>
         </property>
@@ -90,6 +99,9 @@
       </item>
       <item row="3" column="1">
        <widget class="QDateTimeEdit" name="dateTimeEdit">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="displayFormat">
          <string>yyyy/MM/dd</string>
         </property>
@@ -104,6 +116,9 @@
       </item>
       <item row="3" column="2">
        <widget class="QDateTimeEdit" name="dateTimeEdit_2">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="displayFormat">
          <string>yyyy/MM/dd</string>
         </property>
@@ -111,6 +126,9 @@
       </item>
       <item row="0" column="1">
        <widget class="QComboBox" name="comboBox">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="sizeAdjustPolicy">
          <enum>QComboBox::AdjustToContents</enum>
         </property>
@@ -118,6 +136,9 @@
       </item>
       <item row="6" column="1">
        <widget class="QComboBox" name="comboBox_4">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="editable">
          <bool>true</bool>
         </property>
@@ -143,6 +164,9 @@
       </item>
       <item row="4" column="1">
        <widget class="QSpinBox" name="spinBox">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="minimum">
          <number>0</number>
         </property>
@@ -161,7 +185,11 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="comboBox_2"/>
+       <widget class="QComboBox" name="comboBox_2">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+       </widget>
       </item>
       <item row="6" column="0">
        <widget class="QLabel" name="label_6">
@@ -180,7 +208,7 @@
       <item row="5" column="1">
        <widget class="QRadioButton" name="radioButton">
         <property name="text">
-         <string>缺陷检测</string>
+         <string>动态检测</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -193,10 +221,17 @@
       <item row="5" column="2">
        <widget class="QRadioButton" name="radioButton_2">
         <property name="text">
-         <string>操作检测</string>
+         <string>静态检测</string>
         </property>
         <property name="autoExclusive">
          <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="2">
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="text">
+         <string>添加</string>
         </property>
        </widget>
       </item>
@@ -205,8 +240,8 @@
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>310</y>
+       <x>20</x>
+       <y>320</y>
        <width>641</width>
        <height>291</height>
       </rect>
@@ -219,10 +254,13 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>20</y>
+         <y>10</y>
          <width>621</width>
          <height>271</height>
         </rect>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
        </property>
        <attribute name="verticalHeaderVisible">
         <bool>false</bool>
@@ -237,23 +275,6 @@
          <string>文件数目</string>
         </property>
        </column>
-      </widget>
-      <widget class="QLabel" name="label_8">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>50</y>
-         <width>341</width>
-         <height>71</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;MS Shell Dlg 2&quot;;
-background-color: rgb(255, 255, 0);</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="page_4">
@@ -285,38 +306,137 @@ background-color: rgb(255, 255, 0);</string>
     <widget class="QWidget" name="gridLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>600</y>
-       <width>621</width>
+       <x>80</x>
+       <y>620</y>
+       <width>1111</width>
        <height>71</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="1">
+      <item row="0" column="2">
        <widget class="QPushButton" name="pushButton_2">
         <property name="text">
          <string>开班</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
+      <item row="0" column="4">
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="text">
+         <string>清空列表</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
        <widget class="QPushButton" name="pushButton">
         <property name="text">
          <string>停班</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
+      <item row="0" column="3">
        <widget class="QPushButton" name="pushButton_3">
         <property name="text">
-         <string>开班异常修复</string>
+         <string>时间恢复</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="pushButton_6">
+        <property name="text">
+         <string>数据刷新</string>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
+    <widget class="QWidget" name="widget_2" native="true">
+     <property name="geometry">
+      <rect>
+       <x>670</x>
+       <y>0</y>
+       <width>581</width>
+       <height>621</height>
+      </rect>
+     </property>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>211</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>配置: 流水线 - 班次- 机型 -工站 列表</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>561</width>
+        <height>581</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>250</y>
+        <width>351</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgb(255, 255, 0);
+color: rgb(255, 0, 0);
+padding-left: 30px</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>listWidget</zorder>
+     <zorder>label_9</zorder>
+     <zorder>label_8</zorder>
+    </widget>
    </widget>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1273</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>数据生成</string>
+    </property>
+    <addaction name="actionLine"/>
+    <addaction name="separator"/>
+   </widget>
+   <addaction name="menu"/>
+  </widget>
+  <action name="actionLine">
+   <property name="icon">
+    <iconset>
+     <normaloff>menu.ico</normaloff>menu.ico</iconset>
+   </property>
+   <property name="text">
+    <string>流水线</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

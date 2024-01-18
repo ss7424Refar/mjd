@@ -165,4 +165,5 @@ input
 sinput
 soutput
 output
-
+core
+*.json

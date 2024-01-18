@@ -120,6 +120,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButton.clicked.connect(lambda: self.stop_shift(self.comboBox.currentData()))
         self.pushButton_2.clicked.connect(self.check_ui_data)
         self.pushButton_3.clicked.connect(lambda: self.repair_system('2022-11-22 06:06:06'))
+        # self.pushButton_4.clicked.connect(self.add_station)
 
     def ui_init(self):
         self.label_8.setVisible(False)
@@ -504,6 +505,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print('设置系统时间为: ' + sys_time + '_' + stdout.read().decode('utf-8').strip())
         ssh_client.close()
 
+    # def add_station(self):
+
+
+
+
     def on_finished(self):
         self.set_window_enable()
 
@@ -566,7 +572,7 @@ class WorkerThread(QThread):
 
             if result == 0:
                 # 获取sku_switch以及procedure_id接口
-                self.get_sku_procedure_id(utc_time)
+                self.get_sku_procedure_id(set_system_time)
                 self.main_window.stop_shift_silent(self.main_window.ui_data['line_id'])
             else:
                 break
@@ -635,9 +641,10 @@ class WorkerThread(QThread):
         session_start_time = (datetime.strptime(session_start_time, time_format) +
                               timedelta(seconds=int(self.main_window.session_begin))).strftime(time_format)
         print('文件路径: ' + self.work_path)
+        sno = 1
         for filename, value in files.items():
             save_file = []
-            sno = 0
+
             ymd = datetime.strptime(session_start_time, time_format).strftime('%Y%m%d')
             for i in range(value):
                 index = filename.split('-')[1].replace('.json', '')
@@ -702,9 +709,10 @@ class WorkerThread(QThread):
         session_start_time = (datetime.strptime(session_start_time, time_format) +
                               timedelta(seconds=int(self.main_window.session_begin))).strftime(time_format)
         print('文件路径: ' + self.work_path)
+        sno = 1
         for filename, value in static_files.items():
             save_file = []
-            sno = 0
+
             ymd = datetime.strptime(session_start_time, time_format).strftime('%Y%m%d')
             for i in range(value):
                 file_path = './data/s/' + filename

@@ -55,5 +55,20 @@ pyinstaller.exe -F .\runme.py --icon .\ico.ico
 
 ## new 打包
 ```commandline
-pyinstaller .\runme.py --onefile --add-data "ico.ico;." --add-data "1.mp3;."
+pyinstaller.exe -F .\urunme.py --icon .\ico.ico 
+pyinstaller -F main.py
+pyinstaller -F faker.py
+
+-> 将main.exe和faker.exe放入core文件中
+
+```
+
+## 样式修改 （dark-blue）
+```commandline
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<resources>
+  <color name="primaryTextColor">#ffff00</color>
+  <color name="secondaryTextColor">#ffffff</color>
+</resources>
+
 ```

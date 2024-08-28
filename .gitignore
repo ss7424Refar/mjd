@@ -161,9 +161,10 @@ cython_debug/
 
 data/o/*
 test
-input
-sinput
-soutput
-output
+old/input
+old/sinput
+old/soutput
+old/output
 core
 *.json
+

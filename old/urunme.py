@@ -129,8 +129,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tableWidget_3.setColumnWidth(0, 300)
         self.tableWidget_3.setColumnWidth(1, 300)
 
-        self.init_table('./data/d/', self.tableWidget_2)
-        self.init_table('./data/s/', self.tableWidget_3)
+        self.init_table('../data/d/', self.tableWidget_2)
+        self.init_table('../data/s/', self.tableWidget_3)
 
         current_datetime = datetime.now()
         previous_year = current_datetime.year - 1

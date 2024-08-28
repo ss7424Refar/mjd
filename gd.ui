@@ -59,21 +59,21 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>班次</string>
+         <string>Shift</string>
         </property>
        </widget>
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>开班区间 </string>
+         <string>Shift Start Day</string>
         </property>
        </widget>
       </item>
       <item row="4" column="0">
        <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>时间区间</string>
+         <string>Shift Start Hour</string>
         </property>
        </widget>
       </item>
@@ -83,7 +83,7 @@
          <string notr="true"/>
         </property>
         <property name="placeholderText">
-         <string>请先输入流水线</string>
+         <string>line keyword search</string>
         </property>
        </widget>
       </item>
@@ -110,7 +110,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>机型</string>
+         <string>Model</string>
         </property>
        </widget>
       </item>
@@ -142,9 +142,12 @@
         <property name="editable">
          <bool>true</bool>
         </property>
+        <property name="currentText">
+         <string>Selection Order: Line - Shift - Model - Station</string>
+        </property>
         <item>
          <property name="text">
-          <string>请选择流水线-班次-机型后再选择工站</string>
+          <string>Selection Order: Line - Shift - Model - Station</string>
          </property>
         </item>
        </widget>
@@ -158,7 +161,7 @@
          </size>
         </property>
         <property name="text">
-         <string>流水线</string>
+         <string>Line</string>
         </property>
        </widget>
       </item>
@@ -194,21 +197,21 @@
       <item row="6" column="0">
        <widget class="QLabel" name="label_6">
         <property name="text">
-         <string>工站</string>
+         <string>Station</string>
         </property>
        </widget>
       </item>
       <item row="5" column="0">
        <widget class="QLabel" name="label_7">
         <property name="text">
-         <string>工站配置</string>
+         <string>Station Config</string>
         </property>
        </widget>
       </item>
       <item row="5" column="1">
        <widget class="QRadioButton" name="radioButton">
         <property name="text">
-         <string>动态检测</string>
+         <string>Dynamic Detection</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -221,7 +224,7 @@
       <item row="5" column="2">
        <widget class="QRadioButton" name="radioButton_2">
         <property name="text">
-         <string>静态检测</string>
+         <string>Static Detection</string>
         </property>
         <property name="autoExclusive">
          <bool>true</bool>
@@ -231,7 +234,7 @@
       <item row="6" column="2">
        <widget class="QPushButton" name="pushButton_4">
         <property name="text">
-         <string>添加</string>
+         <string>Add</string>
         </property>
        </widget>
       </item>
@@ -262,17 +265,32 @@
        <property name="editTriggers">
         <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
        </property>
+       <attribute name="horizontalHeaderVisible">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="horizontalHeaderMinimumSectionSize">
+        <number>40</number>
+       </attribute>
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>120</number>
+       </attribute>
        <attribute name="verticalHeaderVisible">
         <bool>false</bool>
        </attribute>
+       <attribute name="verticalHeaderMinimumSectionSize">
+        <number>30</number>
+       </attribute>
+       <attribute name="verticalHeaderDefaultSectionSize">
+        <number>30</number>
+       </attribute>
        <column>
         <property name="text">
-         <string>动态模板</string>
+         <string>Dynamic Template</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>文件数目</string>
+         <string>File Count</string>
         </property>
        </column>
       </widget>
@@ -292,12 +310,12 @@
        </attribute>
        <column>
         <property name="text">
-         <string>静态模板</string>
+         <string>Static Template</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>文件数目</string>
+         <string>File Count</string>
         </property>
        </column>
       </widget>
@@ -316,35 +334,35 @@
       <item row="0" column="2">
        <widget class="QPushButton" name="pushButton_2">
         <property name="text">
-         <string>开班</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="4">
-       <widget class="QPushButton" name="pushButton_5">
-        <property name="text">
-         <string>清空列表</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>停班</string>
+         <string>Start Line</string>
         </property>
        </widget>
       </item>
       <item row="0" column="3">
        <widget class="QPushButton" name="pushButton_3">
         <property name="text">
-         <string>时间恢复</string>
+         <string>Reset SystemDate</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="text">
+         <string>Clear ListVIew</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>Stop Line</string>
         </property>
        </widget>
       </item>
       <item row="0" column="0">
        <widget class="QPushButton" name="pushButton_6">
         <property name="text">
-         <string>数据刷新</string>
+         <string> Refresh Data</string>
         </property>
        </widget>
       </item>
@@ -364,12 +382,12 @@
        <rect>
         <x>10</x>
         <y>0</y>
-        <width>211</width>
+        <width>311</width>
         <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string>配置: 流水线 - 班次- 机型 -工站 列表</string>
+       <string>Config ListView:  Line - Shift - Model - Station</string>
       </property>
      </widget>
      <widget class="QListWidget" name="listWidget">
@@ -397,11 +415,13 @@
       <property name="styleSheet">
        <string notr="true">font: 20pt &quot;MS Shell Dlg 2&quot;;
 background-color: rgb(255, 255, 0);
-color: rgb(255, 0, 0);
-padding-left: 30px</string>
+color: rgb(255, 0, 0);</string>
       </property>
       <property name="text">
        <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <zorder>listWidget</zorder>
@@ -421,7 +441,7 @@ padding-left: 30px</string>
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>数据生成</string>
+     <string>Data Creater</string>
     </property>
     <addaction name="actionLine"/>
     <addaction name="separator"/>
@@ -434,7 +454,7 @@ padding-left: 30px</string>
      <normaloff>menu.ico</normaloff>menu.ico</iconset>
    </property>
    <property name="text">
-    <string>流水线</string>
+    <string>Lines</string>
    </property>
   </action>
  </widget>

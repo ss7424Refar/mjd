@@ -76,7 +76,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.current_title_index = 0
 
     def init_table(self):
-        path = './input/'
+        path = 'input/'
         files = os.listdir(path)
         self.tableWidget.setRowCount(len(files))
 
@@ -87,7 +87,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.tableWidget.setCellWidget(i, 1, editor)
 
     def init_table2(self):
-        path = './sinput/'
+        path = 'sinput/'
         files = os.listdir(path)
         self.tableWidget_2.setRowCount(len(files))
 
@@ -300,7 +300,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             show_message_box('请先选择生成json再发送请求')
             return
 
-        dir = './output/'
+        dir = 'output/'
         print('')
         print('>>>>> starting request ...\n')
         for tf in os.listdir(dir):
@@ -322,7 +322,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     # 启动任务
                     self.threadpool.start(task)
 
-        dir = './soutput/'
+        dir = 'soutput/'
         for tf in os.listdir(dir):
             with open(dir + tf, 'r', encoding='utf8', errors='ignore') as f:
                 json_content = json.load(f)
@@ -394,8 +394,8 @@ class RequestTask(QRunnable):
 
 
 def copy_json_file():
-    clear_folder('./output')
-    clear_folder('./soutput')
+    clear_folder('output')
+    clear_folder('soutput')
 
     # 从文件中读取JSON数据
     with open('init.json', 'r') as file:
@@ -560,8 +560,8 @@ def clear_folder(dir):
 
 
 if __name__ == '__main__':
-    clear_folder('./output')
-    clear_folder('./soutput')
+    clear_folder('output')
+    clear_folder('soutput')
 
     sno = 1
     sno2 = 1

@@ -5,11 +5,6 @@ import json
 import api
 import os
 
-# def print_hello(date, thread_id):
-#     thread_name = threading.current_thread().name
-#     time.sleep(random.randint(0, 100))
-#     print(f"Hello from {thread_id} - {thread_name}")
-
 
 def mai_process(ui_data):
     folder_name = datetime.now().strftime("%Y%m%d%H%M%S")
@@ -28,12 +23,12 @@ def mai_process(ui_data):
 
             # 开班
             shift_ng = False
-            for element in view_list:
+            for element in unique_line_data:
                 result = api.force_start_shift_silent(element['line_id'], element['shift_id'],
                                                       element['model_id'])
                 if result == -1:
                     shift_ng = True
-                    print("流水线: {0},班次:{1},机型:{2}开班失败".format(element['line_id'], element['shift_id'], element['model_id']))
+                    print("Line: {0},Shift:{1},Model:{2} start line fail".format(element['line_id'], element['shift_id'], element['model_id']))
                     break
 
             if shift_ng:
@@ -41,7 +36,7 @@ def mai_process(ui_data):
 
             work_path = './data/o/' + folder_name + '/' + start_day.strftime('%Y-%m-%d')
             os.makedirs(work_path, exist_ok=True)
-            print('文件路径: ' + work_path + '\n')
+            print('file path: ' + work_path + '\n')
 
             session_start_time = (datetime.strptime(system_start_time, api.time_format) +
                                   timedelta(seconds=int(api.session_begin))).strftime(api.time_format)
@@ -53,13 +48,15 @@ def mai_process(ui_data):
 
             # 等待当前一组线程执行完成
             for future in concurrent.futures.as_completed(futures):
-                time.sleep(5)
-                future.result()
+                try:
+                    result = future.result()
+                except Exception as e:
+                    print(f"Request with generated an exception: {e}")
             # 开始停班
-            print('start stop ...')
+            print('start stop lines ...')
             if api.stop != 0:
                 time.sleep(int(api.stop))
-            for lines in view_list:
+            for lines in unique_line_data:
                 api.stop_shift_silent(lines['line_id'])
 
             start_day += timedelta(days=1)
@@ -68,10 +65,12 @@ def mai_process(ui_data):
 if __name__ == '__main__':
     with open('u1.json', 'r') as file:
         ui_data_set = json.load(file)
-    with open('v1.json', 'r') as file:
-        view_list = json.load(file)
 
     print(ui_data_set)
-    print(view_list)
+
+    unique_ids = set()
+    unique_line_data = [item for item in ui_data_set['data_set'] if item["line_id"] not in unique_ids and
+                        not unique_ids.add(item["line_id"])]
+    # print(unique_line_data)
 
     mai_process(ui_data_set)

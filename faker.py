@@ -9,10 +9,10 @@ if __name__ == '__main__':
 
     # 流水线(K) 机型（N）, 工序/工站 M
     parser = argparse.ArgumentParser(description='K')
-    parser.add_argument('--K', type=int, help='流水线')
-    parser.add_argument('--M', type=int, help='工序/工站')
-    parser.add_argument('--N', type=int, help='机型')
-    parser.add_argument('--prefix', type=str, help='前缀')
+    parser.add_argument('--K', type=int, help='Line')
+    parser.add_argument('--M', type=int, help='Procedures/Station')
+    parser.add_argument('--N', type=int, help='Model')
+    parser.add_argument('--prefix', type=str, help='Prefix')
     args = parser.parse_args()
 
     api.prefix = args.prefix
@@ -69,4 +69,4 @@ if __name__ == '__main__':
     h, m = divmod(m, 60)
     runtime_str = "{:02d}:{:02d}:{:02d}".format(int(h), int(m), int(s))
     print()
-    print('完成时长 -> {}'.format(runtime_str))
+    print('Time taken to complete -> {}'.format(runtime_str))

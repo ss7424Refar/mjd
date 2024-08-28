@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>配置信息</string>
+   <string>Config Info</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -45,18 +45,18 @@
      <height>251</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout" columnstretch="1,2,1">
+   <layout class="QGridLayout" name="gridLayout" columnstretch="1,2">
     <item row="3" column="0">
      <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>流水线</string>
+       <string>Line Number</string>
       </property>
      </widget>
     </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>前缀</string>
+       <string>Prefix</string>
       </property>
      </widget>
     </item>
@@ -80,7 +80,7 @@
     <item row="4" column="0">
      <widget class="QLabel" name="label_3">
       <property name="text">
-       <string>机型</string>
+       <string>Model Number</string>
       </property>
      </widget>
     </item>
@@ -97,7 +97,7 @@
     <item row="5" column="0">
      <widget class="QLabel" name="label_4">
       <property name="text">
-       <string>工序/工站</string>
+       <string>Procedure/Station  Number</string>
       </property>
      </widget>
     </item>

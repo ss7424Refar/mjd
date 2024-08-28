@@ -20,7 +20,7 @@ class Ui_Dialog(object):
         Dialog.setWindowIcon(icon)
         Dialog.setWhatsThis("")
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
-        self.buttonBox.setGeometry(QtCore.QRect(220, 280, 301, 32))
+        self.buttonBox.setGeometry(QtCore.QRect(220, 281, 301, 31))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
@@ -62,7 +62,6 @@ class Ui_Dialog(object):
         self.gridLayout.addWidget(self.spinBox_3, 5, 1, 1, 1)
         self.gridLayout.setColumnStretch(0, 1)
         self.gridLayout.setColumnStretch(1, 2)
-        self.gridLayout.setColumnStretch(2, 1)
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(Dialog.accept) # type: ignore
@@ -71,9 +70,9 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "配置信息"))
-        self.label_2.setText(_translate("Dialog", "流水线"))
-        self.label.setText(_translate("Dialog", "前缀"))
+        Dialog.setWindowTitle(_translate("Dialog", "Config Info"))
+        self.label_2.setText(_translate("Dialog", "Line Number"))
+        self.label.setText(_translate("Dialog", "Prefix"))
         self.lineEdit.setText(_translate("Dialog", "R"))
-        self.label_3.setText(_translate("Dialog", "机型"))
-        self.label_4.setText(_translate("Dialog", "工序/工站"))
+        self.label_3.setText(_translate("Dialog", "Model Number"))
+        self.label_4.setText(_translate("Dialog", "Procedure/Station  Number"))

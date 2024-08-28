@@ -72,6 +72,15 @@ pyinstaller -F faker.py
 </resources>
 
 ```
+- 注释大写
+```commandline
+<material.css.template>
+
+QPushButton {
+  /* text-transform: uppercase; */
+}  
+```
+
 
 ## 示例
 ![1.png](img/1.png)

@@ -2,7 +2,6 @@ import os
 import configparser
 import json
 
-import psutil
 import requests
 from datetime import datetime, timedelta
 import random
@@ -37,7 +36,7 @@ def set_system_date(sys_time):
     # 执行修改系统时间的命令 2023-12-28 14:49:00
     stdin, stdout, stderr = ssh_client.exec_command('sudo date -s "' + sys_time + '"')
     # 输出命令执行结果
-    print('设置系统时间为: ' + sys_time + '_' + stdout.read().decode('utf-8').strip())
+    print('Set system time to: ' + sys_time + '_' + stdout.read().decode('utf-8').strip())
     ssh_client.close()
 
 
@@ -54,7 +53,7 @@ def init_token():
             data = json.loads(response.text)
             return data['data']['token']
     except Exception as e:
-        print('初始化获取token失败 - ' + str(e))
+        print('init token fail - ' + str(e))
     return None
 
 
@@ -74,16 +73,16 @@ def force_start_shift_silent(line_id, shift_id, model_id):
         if response.status_code == 200:
             data = json.loads(response.text)
             if data['code'] == 409:
-                print("流水线 - [{}] 强制开班失败(409) {}".format(line_id, data['message']))
+                print("Line - [{}] force start fail(409) {}".format(line_id, data['message']))
                 return -1
             else:
-                print("流水线 - [{}] 静默强制开班成功".format(line_id))
+                print("Line - [{}] force start success".format(line_id))
                 return 0
         else:
-            print("流水线 - [{}] 强制开班失败 - {}/ {}".format(line_id, response.status_code, response.text))
+            print("Line - [{}] force start fail - {}/ {}".format(line_id, response.status_code, response.text))
             return -1
     except Exception as e:
-        print("流水线 - [{}] 强制开班失败 {}".format(line_id, str(e)))
+        print("Line - [{}] force start fail {}".format(line_id, str(e)))
         return -1
 
 
@@ -95,16 +94,16 @@ def stop_shift_silent(line_id):
         data = json.loads(response.text)
         if response.status_code == 200:
             if data['code'] == 200:
-                print("流水线 - [{}] 静默停班成功".format(line_id))
+                print("Line - [{}] stop success".format(line_id))
                 return 0
             else:
-                print("流水线 - [{}] 静默停班失败 {}".format(line_id, data['message']))
+                print("Line - [{}] stop fail {}".format(line_id, data['message']))
                 return -1
         else:
-            print("流水线 - [{}] 静默停班失败& {}".format(line_id, data['message']))
+            print("Line - [{}] stop fail& {}".format(line_id, data['message']))
             return -1
     except Exception as e:
-        print("流水线 - [{}] 静默停班失败 {}".format(line_id, str(e)))
+        print("Line - [{}] stop fail {}".format(line_id, str(e)))
         return -1
     finally:
         print()
@@ -115,13 +114,13 @@ def stop_shift_silent(line_id):
 def get_sku_procedure_id(ui_data_set, session_start_time, work_path, num):
     try:
         current_data = ui_data_set[num]
-        print('Thread-{} 执行的数据集 -> {}'.format(num, str(current_data)))
+        print('Thread-{} DataSet -> {}'.format(num, str(current_data)))
         url = my_url + ":85/mira_server_api/client/production_status/" + str(current_data['station_id'])
-        response = requests.request("GET", url, headers={'Content-Type': 'application/json',
-                                                         'token': token})
+        response = requests.request("GET", url, headers={'Content-Type': 'application/json', 'token': token})
+
+        print(response.text)
         if response.status_code == 200:
             data = json.loads(response.text)
-            print(data)
             if data['code'] == 200:
                 procedure_id = data['data']['procedures'][0]['procedure_id']
                 sku_switch_id = data['data']['sku_switch_id']
@@ -130,12 +129,12 @@ def get_sku_procedure_id(ui_data_set, session_start_time, work_path, num):
                 else:
                     write_static_json(current_data, procedure_id, sku_switch_id, session_start_time, num, work_path)
             else:
-                print('Thread-{} 获取sku_procedure失败~'.format(num))
+                print('Thread-{} get sku_procedure fail~'.format(num))
         else:
-            print('Thread-{} 获取sku_procedure失败 / {}'.format(num, response.text))
+            print('Thread-{} get sku_procedure fail / {}'.format(num, response.text))
     except Exception as e:
         traceback.print_exc()
-        print('Thread-{} get sku_procedure失败 {}'.format(num, str(e)))
+        print('Thread-{} get sku_procedure failed {}'.format(num, str(e)))
 
 
 def write_dynamic_json(current_data, procedure_id, sku_switch_id, session_start_time, num, work_path):
@@ -249,6 +248,9 @@ def send_dynamic_request(currentData, num, save_file):
     for file_path in save_file:
         with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
             json_content = json.load(f)
+
+        time_sleep = random.randint(0, int(thread_random))
+        time.sleep(time_sleep)
         try:
             url = my_url + ":85/mira_server_api/client/detect_result/dynamic/" + str(
                 currentData['station_id'])
@@ -258,17 +260,18 @@ def send_dynamic_request(currentData, num, save_file):
             data = json.loads(response.text)
             if response.status_code == 200:
                 if data['code'] == 200:
-                    print(' > Thread - {0}, 流水线 - {1} -> {2} 发送动态检测请求成功~ {3}'
-                          .format(num, currentData['line_id'], os.path.basename(file_path), data['data']['message']))
+                    print(' > Thread - {0} ~ Sleep ... {1}s, Line - {2} -> {3} send_dynamic_request success~ {4}'
+                          .format(num, time_sleep, currentData['line_id'], os.path.basename(file_path), data['data']['message']))
                 else:
-                    print(' > Thread - {0}, 流水线 - {1} -> {2} 发送动态检测请求失败~ {3}'
-                          .format(num, currentData['line_id'], os.path.basename(file_path), data['data']['message']))
+                    print(' > Thread - {0} ~ Sleep ... {1}s, Line - {2} -> {3} send_dynamic_request fail~ {4}'
+                          .format(num, time_sleep, currentData['line_id'], os.path.basename(file_path),
+                                  data['data']['message']))
             else:
-                print(' > Thread - {0}, 流水线 - {1} -> {2} 发送动态检测请求失败'
-                      .format(num, currentData['line_id'], os.path.basename(file_path)))
+                print(' > Thread - {0} ~ sleep ... {1}s, Line - {2} -> {3} send_dynamic_request fail'
+                      .format(num, time_sleep, currentData['line_id'], os.path.basename(file_path)))
         except Exception as e:
-            print(' > Thread - {0}, 流水线 - {1} -> {2} 发送动态检测请求失败~ {3}'
-                  .format(num, currentData['line_id'], os.path.basename(file_path), str(e)))
+            print(' > Thread - {0} ~ sleep ... {1}s, Line - {2} -> {3} send_dynamic_request fail. {4}'
+                  .format(num, time_sleep, currentData['line_id'], os.path.basename(file_path), str(e)))
 
 
 def send_static_request(currentData, num, save_file, procedure_id, sku_switch_id):
@@ -276,6 +279,9 @@ def send_static_request(currentData, num, save_file, procedure_id, sku_switch_id
         with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
             json_content = json.load(f)
             json_content = rebuild_json(json_content, procedure_id, sku_switch_id)
+
+        time_sleep = random.randint(0, int(thread_random))
+        time.sleep(time_sleep)
         try:
             url = my_url + ":85/mira_server_api/client/detect_result/static/" + \
                   str(currentData['station_id'])
@@ -285,17 +291,17 @@ def send_static_request(currentData, num, save_file, procedure_id, sku_switch_id
             data = json.loads(response.text)
             if response.status_code == 200:
                 if data['code'] == 200:
-                    print(' > Thread - {0}, 流水线 - {1} -> {2} 发送静态检测请求成功~ {3}'
-                          .format(num, currentData['line_id'], os.path.basename(file_path), data['data']['message']))
+                    print(' > Thread - {0} ~ Sleep ... {1}s, Line - {2} -> {3} send_static_request success~ {4}'
+                          .format(num, time_sleep, currentData['line_id'], os.path.basename(file_path), data['data']['message']))
                 else:
-                    print(' > Thread - {0}, 流水线 - {1} -> {2} 发送静态检测请求失败~'
-                          .format(num, currentData['line_id'], os.path.basename(file_path)))
+                    print(' > Thread - {0} ~ Sleep ... {1}s, Line - {2} -> {3} send_static_request fail~'
+                          .format(num, time_sleep, currentData['line_id'], os.path.basename(file_path)))
             else:
-                print(' > Thread - {0}, 流水线 - {1} -> {2} 发送静态检测请求失败'
-                      .format(num, currentData['line_id'], os.path.basename(file_path)))
+                print(' > Thread - {0} ~ Sleep ... {1}s, Line - {2} -> {3} send_static_request fail'
+                      .format(num, time_sleep, currentData['line_id'], os.path.basename(file_path)))
         except Exception as e:
-            print(' > Thread - {0}, 流水线 - {1} -> {2} 发送静态检测请求失败~ {3}'
-                  .format(num, currentData['line_id'], os.path.basename(file_path), str(e)))
+            print(' > Thread - {0} ~ Sleep ... {1}s, Line - {2} -> {3} send_static_request fail. {4}'
+                  .format(num, time_sleep, currentData['line_id'], os.path.basename(file_path), str(e)))
 
 
 def rebuild_json(json_data, procedure_id, sku_switch_id):
@@ -332,16 +338,16 @@ def add_line(K):
         data = json.loads(response.text)
         if response.status_code == 200:
             if data['code'] == 200:
-                print('{} 流水线创建成功 - {}'.format(name, response.text))
+                print('{} Line create success - {}'.format(name, response.text))
                 return data['data']['line_id']
             else:
-                print('{} 流水线创建失败!{}'.format(name, data['message']))
+                print('{} Line create fail! {}'.format(name, data['message']))
                 return None
         else:
-            print('{} 流水线创建失败 {}'.format(name, data['message']))
+            print('{} Line create fail {}'.format(name, data['message']))
             return None
     except Exception as e:
-        print('{} 流水线创建失败 {}'.format(name, str(e)))
+        print('{} Line create fail {}'.format(name, str(e)))
         return None
 
 
@@ -362,16 +368,16 @@ def add_model(N):
         data = json.loads(response.text)
         if response.status_code == 200:
             if data['code'] == 200:
-                print('{} 机型创建成功 - {}'.format(name, response.text))
+                print('{} Model create success - {}'.format(name, response.text))
                 return data['data']['model_id']
             else:
-                print('{} 机型创建失败!{}'.format(name, data['message']))
+                print('{} Model create fail! {}'.format(name, data['message']))
                 return None
         else:
-            print('{} 机型创建失败 {}'.format(name, data['message']))
+            print('{} Model create fail {}'.format(name, data['message']))
             return None
     except Exception as e:
-        print('{} 机型创建失败 {}'.format(name, str(e)))
+        print('{} Model create fail {}'.format(name, str(e)))
         return None
 
 
@@ -393,16 +399,16 @@ def add_procedure(model_id, M):
         data = json.loads(response.text)
         if response.status_code == 200:
             if data['code'] == 200:
-                print('{} 工序创建成功 - {}'.format(name, response.text))
+                print('{} Procedure create success - {}'.format(name, response.text))
                 return data['data']['procedure_id']
             else:
-                print('{} 工序创建失败!{}'.format(name, data['message']))
+                print('{} Procedure create fail! {}'.format(name, data['message']))
                 return None
         else:
-            print('{} 工序创建失败 {}'.format(name, response.text))
+            print('{} Procedure create fail {}'.format(name, response.text))
             return None
     except Exception as e:
-        print('{} 工序创建失败 {}'.format(name, str(e)))
+        print('{} Procedure create fail {}'.format(name, str(e)))
         return None
 
 
@@ -417,16 +423,16 @@ def line_bind_model(line_id, model_id):
         data = json.loads(response.text)
         if response.status_code == 200:
             if data['code'] == 200:
-                print('流水线{}绑定机型{}成功 - {}'.format(line_id, model_id, response.text))
+                print('Line{} bind Model{} success - {}'.format(line_id, model_id, response.text))
                 return 0
             else:
-                print('流水线{}绑定机型{}失败!{}'.format(line_id, model_id, data['message']))
+                print('Line{} bind Model{} fail! {}'.format(line_id, model_id, data['message']))
                 return -1
         else:
-            print('流水线{}绑定机型{}失败 {} '.format(line_id, model_id, data['message']))
+            print('Line{} bind Model{} fail {} '.format(line_id, model_id, data['message']))
             return -1
     except Exception as e:
-        print('流水线{}绑定机型{}失败 {}'.format(line_id, model_id, str(e)))
+        print('Line{} bind Model{} fail {}'.format(line_id, model_id, str(e)))
         return -1
 
 
@@ -447,16 +453,16 @@ def line_bind_station(line_id, M):
         data = json.loads(response.text)
         if response.status_code == 200:
             if data['code'] == 200:
-                print('流水线{}绑定工站{}成功 - {}'.format(line_id, name, response.text))
+                print('Line{} bind Station{} success - {}'.format(line_id, name, response.text))
                 return data['data']['station_ids'][0]
             else:
-                print('流水线{}绑定工站{}失败!{}'.format(line_id, name, data['message']))
+                print('Line{} bind Station{} fail! {}'.format(line_id, name, data['message']))
                 return None
         else:
-            print('流水线{}绑定工站{}失败 {}'.format(line_id, name, data['message']))
+            print('Line{} bind Station{} fail {}'.format(line_id, name, data['message']))
             return None
     except Exception as e:
-        print('流水线{}绑定工站{}失败 {}'.format(line_id, name, str(e)))
+        print('Line{} bind Station{} fail {}'.format(line_id, name, str(e)))
         return None
 
 
@@ -471,22 +477,22 @@ def station_bind_procedures(station_id, procedure_id):
         data = json.loads(response.text)
         if response.status_code == 200:
             if data['code'] == 200:
-                print('工站{}绑定工序{}成功 - {}'.format(station_id, procedure_id, response.text))
+                print('Station{} bind Procedures{} success - {}'.format(station_id, procedure_id, response.text))
                 return 0
             else:
-                print('工站{}绑定工序{}失败!{}'.format(station_id, procedure_id, data['message']))
+                print('Station{} bind Procedures{} fail! {}'.format(station_id, procedure_id, data['message']))
                 return -1
         else:
-            print('工站{}绑定工序{}失败 {}'.format(station_id, procedure_id, data['message']))
+            print('Station{} bind Procedures{} fail {}'.format(station_id, procedure_id, data['message']))
             return -1
     except Exception as e:
-        print('工站{}绑定工序{}失败 {}'.format(station_id, procedure_id, str(e)))
+        print('Station{} bind Procedures{} fail {}'.format(station_id, procedure_id, str(e)))
         return -1
 
 
 time_format = "%Y-%m-%d %H:%M:%S"
 config = configparser.ConfigParser()
-config.read('my.ini')
+config.read('my.ini', encoding='utf-8')
 ip = config.get('conf', 'ip')
 username = config.get('conf', 'username')
 password = config.get('conf', 'password')
@@ -494,10 +500,10 @@ port = config.get('conf', 'port')
 session_begin = config.get('conf', 'session_begin')
 stop = config.get('conf', 'stop')
 skip_view_list = config.get('conf', 'skip_view_list')
+thread_random = config.get('conf', 'thread_random')
 my_url = "http://" + ip
 
 token = init_token()
 prefix = ""
 # timestamp = str(int(time.time()))
 timestamp = "$"
-
